@@ -14,7 +14,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "generate-pokemon": "npx ts-node ./scripts/generate.tsx"
+    "generate-pokemon": "npx ts-node ./scripts/generate.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
