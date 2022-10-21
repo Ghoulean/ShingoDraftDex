@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkshingo_draft_dex=self.webpackChunkshingo_draft_dex||[]).push([[218],{2513:function(n,e,t){t.r(e);var u=t(3431);e.default=function(){return(0,u.tZ)("p",null,"Page not found")}}}]);
+//# sourceMappingURL=component---src-pages-404-tsx-07f1464ea07f1ab17e33.js.map
