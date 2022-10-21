@@ -4,6 +4,7 @@ import type { Pokemon } from "../models/Pokemon";
 import { graphql } from "gatsby";
 import { Natdex } from "../utils/natdex";
 import { GenerationNum, Specie } from "@pkmn/data";
+import Sprite from "../widgets/sprite";
 
 const Centered = styled.nav({
   display: "flex",
@@ -37,6 +38,9 @@ export default function PokemonArticle(props: { data: { allMdx: { edges: { node:
             __html: body,
           }}
         />
+        {pokemon.displayName.map((name: string) => {
+          return <Sprite gen={pokemon.generation} pokemonDisplayName={name} />
+        })}
       </div>
     </Centered>
   );

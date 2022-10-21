@@ -1,5 +1,7 @@
+import { GenerationNum } from "@pkmn/dex-types";
+
 export type Pokemon = {
-  generation: number;
+  generation: GenerationNum;
   dexNumber: number;
   idName: string;
   displayName: string[];

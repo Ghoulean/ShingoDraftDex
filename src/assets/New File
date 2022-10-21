@@ -1,0 +1,3 @@
+wget -r -l1 --no-parent https://play.pokemonshowdown.com/sprites/ani/
+wget -r -l1 --no-parent https://play.pokemonshowdown.com/sprites/ani-shiny/
+wget -r -l1 --no-parent https://play.pokemonshowdown.com/sprites/pokemonicons-sheet.png

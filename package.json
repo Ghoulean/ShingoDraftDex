@@ -23,6 +23,7 @@
     "@mdx-js/react": "^2.1.5",
     "@pkmn/data": "^0.5.28",
     "@pkmn/dex": "^0.5.28",
+    "@pkmn/img": "^0.1.20",
     "gatsby": "^4.24.4",
     "gatsby-plugin-emotion": "^7.24.0",
     "gatsby-plugin-manifest": "^4.24.0",
