@@ -14,20 +14,30 @@ const Centered = styled.nav({
   padding: "10px 0 0",
 });
 
-export default function PokemonArticle(props: { data: { allMdx: { edges: { node: {frontmatter: Pokemon, body: string}}[] } } }) {
-  const node = props.data.allMdx!.edges[0].node;
-  const pokemon: Pokemon = {
-    ...node.frontmatter
-  }
-  const body: string = node.body;
-  const specie: Specie[] = pokemon.displayName.map((name) => {
-    return Natdex.get(pokemon.generation as GenerationNum).species.get(name)!
+export default function PokemonArticle(props: {
+  data: {
+    allMdx: { edges: { node: { frontmatter: Pokemon; body: string } }[] };
+  };
+}) {
+  const edges = props.data.allMdx!.edges;
+  const pokemon: Pokemon[] = edges.map((edge) => {
+    return edge.node.frontmatter;
+  });
+
+  const articleBodies: string[] = edges.map((edge) => {
+    return edge.node.body;
+  });
+
+  const specie: Specie[] = pokemon.map((pokemon) => {
+    return Natdex.get(pokemon.generation as GenerationNum).species.get(
+      pokemon.displayName
+    )!;
   });
 
   return (
     <Centered>
       <div>
-        <h1>{pokemon.displayName[0]}</h1>
+        <h1>{pokemon[0].displayName}</h1>
         <div
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(specie),
@@ -35,11 +45,16 @@ export default function PokemonArticle(props: { data: { allMdx: { edges: { node:
         />
         <div
           dangerouslySetInnerHTML={{
-            __html: body,
+            __html: articleBodies.join("\n"),
           }}
         />
-        {pokemon.displayName.map((name: string) => {
-          return <Sprite gen={pokemon.generation} pokemonDisplayName={name} />
+        {pokemon.map((pokemon: Pokemon) => {
+          return (
+            <Sprite
+              gen={pokemon.generation}
+              pokemonDisplayName={pokemon.displayName}
+            />
+          );
         })}
       </div>
     </Centered>
