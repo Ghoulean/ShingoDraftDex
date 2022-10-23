@@ -1,0 +1,8 @@
+.cache
+.github
+node_modules
+public
+
+*.html
+*.md
+*.mdx

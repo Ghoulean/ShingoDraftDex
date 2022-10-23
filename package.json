@@ -15,6 +15,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
+    "pretty": "prettier --write \"./**/*.{ts,tsx,json}\"",
     "generate-pokemon": "npx ts-node ./scripts/generate.ts"
   },
   "dependencies": {
@@ -29,8 +30,11 @@
     "gatsby-plugin-manifest": "^4.24.0",
     "gatsby-plugin-mdx": "^4.3.0",
     "gatsby-source-filesystem": "^4.24.0",
+    "grommet": "^2.27.0",
+    "polished": "^4.2.2",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@pkmn/dex-types": "^0.5.28",
