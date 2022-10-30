@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkshingo_draft_dex=self.webpackChunkshingo_draft_dex||[]).push([[691],{7200:function(n,t,e){e.r(t);var u=e(7294),i=e(1082),o=e(3431);t.default=function(){return(0,o.tZ)(u.Fragment,null,(0,o.tZ)("title",null,"Shingo Draft Dex"),(0,o.tZ)("p",null,"Site under construction"),(0,o.tZ)(i.Link,{to:"/pokemon/8"},"Link to gen 8"))}}}]);
+//# sourceMappingURL=component---src-pages-index-tsx-a7d205df66555b47ec46.js.map

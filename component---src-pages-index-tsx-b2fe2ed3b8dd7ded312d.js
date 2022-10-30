@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkshingo_draft_dex=self.webpackChunkshingo_draft_dex||[]).push([[691],{7200:function(t,n,e){e.r(n);var u=e(7294),r=e(3431);n.default=function(){return(0,r.tZ)(u.Fragment,null,(0,r.tZ)("title",null,"Shingo Draft Dex"),(0,r.tZ)("p",null,"Site under construction"))}}}]);
-//# sourceMappingURL=component---src-pages-index-tsx-b2fe2ed3b8dd7ded312d.js.map
