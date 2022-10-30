@@ -49,7 +49,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
         }
     });
 
-    // create pages
+    // create pokemon pages
     const groupedPokemonKeys: string[] = Object.keys(groupedPokemon);
     for (const baseSpecies of groupedPokemonKeys) {
         const pokemonGroup: Pokemon[] = groupedPokemon[baseSpecies];
@@ -65,6 +65,16 @@ export const createPages: GatsbyNode["createPages"] = async ({
             },
         });
     }
+
+    // create tier list page
+    createPage({
+        path: `pokemon/8`,
+        component: path.resolve("./src/templates/generation_tier_list.tsx"),
+        context: {
+            generation: 8
+        },
+    });
+
 };
 
 const getUrlPath = (

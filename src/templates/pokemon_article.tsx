@@ -34,7 +34,6 @@ export default function PokemonArticle(props: {
             pokemon.displayName
         )!;
     });
-    // assumption: all pokemon here are of same generation
     const generation: GenerationNum = pokemon[0].generation;
     const pokemonToMarkdownBodyMap: {
         [pokemonDisplayName: string]: {
