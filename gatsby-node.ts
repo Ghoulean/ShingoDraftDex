@@ -2,6 +2,9 @@ import path from "path";
 import type { GatsbyNode } from "gatsby";
 import type { Pokemon } from "./src/models/Pokemon";
 import { GenerationNum } from "@pkmn/dex-types";
+import { PokemonArticlePropsFactory } from "./src/pagegen/pokemon_article_props_factory";
+import { TierListPropsFactory } from "./src/pagegen/tier_list_props_factory";
+import { PageProps } from "./src/pagegen/page_props_factory";
 
 export const createPages: GatsbyNode["createPages"] = async ({
     actions,
@@ -9,72 +12,17 @@ export const createPages: GatsbyNode["createPages"] = async ({
 }) => {
     const { createPage } = actions;
 
-    // make graphql call
-    const allMarkdown: {
-        errors?: any;
-        data?: { allMdx: { edges: { node: { frontmatter: Pokemon } }[] } };
-    } = await graphql(`
-        query loadPageQuery {
-            allMdx(sort: { order: [ASC], fields: [frontmatter___dexNumber] }) {
-                edges {
-                    node {
-                        frontmatter {
-                            generation
-                            dexNumber
-                            idName
-                            baseId
-                            displayName
-                            rating
-                            specialConditions
-                            tags
-                        }
-                    }
-                }
-            }
-        }
-    `);
-
-    // group by base species/dex number
-    // there currently is no pokemon family that maps to the same base species but not dex number,
-    // or to the same dex number but not base species
-    // gamefreak please don't troll me
-    const groupedPokemon: { [key: string]: Pokemon[] } = {};
-
-    allMarkdown.data!.allMdx.edges.forEach((edge) => {
-        const pokemon: Pokemon = edge.node.frontmatter;
-        if (!(pokemon.baseId in groupedPokemon)) {
-            groupedPokemon[pokemon.baseId] = [pokemon];
-        } else {
-            groupedPokemon[pokemon.baseId].push(pokemon);
-        }
-    });
-
-    // create pokemon pages
-    const groupedPokemonKeys: string[] = Object.keys(groupedPokemon);
-    for (const baseSpecies of groupedPokemonKeys) {
-        const pokemonGroup: Pokemon[] = groupedPokemon[baseSpecies];
-        const basePokemon: Pokemon = pokemonGroup.find(
-            (pokemon) => pokemon.displayName === pokemon.baseId
-        )!;
-        createPage({
-            path: getUrlPath(basePokemon.generation, basePokemon.displayName),
-            component: path.resolve("./src/templates/pokemon_article.tsx"),
-            context: {
-                generation: basePokemon.generation,
-                dexNumber: basePokemon.dexNumber,
-            },
-        });
-    }
-
-    // create tier list page
-    createPage({
-        path: `pokemon/8`,
-        component: path.resolve("./src/templates/generation_tier_list.tsx"),
-        context: {
-            generation: 8
-        },
-    });
-
+    const pokemonArticlePropsFactory: PokemonArticlePropsFactory = new PokemonArticlePropsFactory();
+    const pokemonArticlePageProps: PageProps[] = await pokemonArticlePropsFactory.createPageProps(graphql);
+    pokemonArticlePageProps.forEach((prop) => {
+        createPage(prop);
+    })
+    
+    const tierListPropsFactory: TierListPropsFactory = new TierListPropsFactory();
+    const tierListPropsFactoryProps: PageProps[] = await tierListPropsFactory.createPageProps(graphql);
+    tierListPropsFactoryProps.forEach((prop) => {
+        createPage(prop);
+    })
 };
 
 const getUrlPath = (
