@@ -3,6 +3,23 @@ import { Pokemon } from "../../models/Pokemon";
 import { AnalysisTab } from "./analysis_tab";
 import { AnalysisRenderer } from "./analysis_renderer";
 import { GenerationNum } from "@pkmn/types";
+import styled from "@emotion/styled";
+
+const Centered = styled.div({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    margin: "0 auto",
+    padding: "10px 0 0",
+});
+const Tabholder = styled.div({
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    margin: "0 auto",
+    padding: "10px 0 0",
+});
 
 type AnalysisProps = {
     generation: GenerationNum;
@@ -49,8 +66,8 @@ export class Analysis extends React.Component<AnalysisProps, AnalysisState> {
 
     render() {
         return (
-            <>
-                <>
+            <Centered>
+                <Tabholder>
                     {this.orderedPokemonList.map((pokemonName, i) => {
                         return (
                             <AnalysisTab
@@ -64,11 +81,11 @@ export class Analysis extends React.Component<AnalysisProps, AnalysisState> {
                             />
                         );
                     })}
-                </>
+                </Tabholder>
                 <AnalysisRenderer>
                     {this.bodies[this.state.currentTab]}
                 </AnalysisRenderer>
-            </>
+            </Centered>
         );
     }
 }

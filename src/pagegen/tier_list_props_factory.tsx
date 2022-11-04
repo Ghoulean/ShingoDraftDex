@@ -4,7 +4,7 @@ import { Pokemon } from "../models/Pokemon";
 import { getUrlPath } from "../utils/url";
 import { PageProps, PagePropsFactory } from "./page_props_factory";
 
-export type TierrListPropContext = {
+export type TierListPropContext = {
     generation: GenerationNum;
 };
 

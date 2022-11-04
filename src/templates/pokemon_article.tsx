@@ -6,8 +6,9 @@ import { Natdex } from "../utils/natdex";
 import { GenerationNum, Specie } from "@pkmn/data";
 import { Sprite } from "../widgets/sprite";
 import { Analysis } from "../widgets/analysis/analysis";
+import { PokemonOverview } from "../widgets/pokemon_overview";
 
-const Centered = styled.nav({
+const Centered = styled.div({
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
@@ -51,31 +52,18 @@ export default function PokemonArticle(props: {
         <Centered>
             <div>
                 <h1>{pokemon[0].displayName}</h1>
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(specie),
-                    }}
-                />
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: articleBodies.join("\n"),
-                    }}
-                />
+                <div>
+                    {specie.map((s: Specie) => {
+                        return <PokemonOverview gen={generation} specie={s} />
+                    })}
+                </div>
                 <Analysis
                     generation={generation}
                     orderedPokemonList={pokemon.map((pokemon) => {
                         return pokemon.displayName;
                     })}
                     pokemonToMarkdownBodyMap={pokemonToMarkdownBodyMap}
-                ></Analysis>
-                {pokemon.map((pokemon: Pokemon) => {
-                    return (
-                        <Sprite
-                            gen={pokemon.generation}
-                            pokemonDisplayName={pokemon.displayName}
-                        />
-                    );
-                })}
+                />
             </div>
         </Centered>
     );
