@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import type { Pokemon } from "../models/Pokemon";
 import { graphql } from "gatsby";
 import { GenerationNum, Specie } from "@pkmn/data";
-import { Icon } from "../widgets/icon";
+import { PokemonIcon } from "../widgets/pokemon_icon";
 
 type PokemonRatingBucket = {
     rating: number;
@@ -72,7 +72,7 @@ export default function GenerationTierList(props: {
             <div>
                 {pokemonInTier.map((pokemon: Pokemon) => {
                     return (
-                        <Icon
+                        <PokemonIcon
                             gen={pokemon.generation}
                             pokemonDisplayName={pokemon.displayName}
                             link={true}
@@ -84,7 +84,7 @@ export default function GenerationTierList(props: {
     }
     const unratedTier = unratedPokemonBucket.pokemon.map((pokemon: Pokemon) => {
         return (
-            <Icon
+            <PokemonIcon
                 gen={pokemon.generation}
                 pokemonDisplayName={pokemon.displayName}
                 link={true}
@@ -93,7 +93,7 @@ export default function GenerationTierList(props: {
     });
     const bannedTier = bannedPokemonBucket.pokemon.map((pokemon: Pokemon) => {
         return (
-            <Icon
+            <PokemonIcon
                 gen={pokemon.generation}
                 pokemonDisplayName={pokemon.displayName}
                 link={true}

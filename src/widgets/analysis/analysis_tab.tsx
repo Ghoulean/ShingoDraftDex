@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "@emotion/styled";
 import { Pokemon } from "../../models/Pokemon";
-import { Icon } from "../icon";
+import { PokemonIcon } from "../pokemon_icon";
 import { GenerationNum } from "@pkmn/types";
 
 export type AnalysisTabProps = {
@@ -25,7 +25,7 @@ export const AnalysisTab = (props: AnalysisTabProps) => {
     });
     return (
         <Button onClick={props.callback}>
-            <Icon
+            <PokemonIcon
                 gen={props.generation}
                 pokemonDisplayName={props.pokemonName}
             />{" "}

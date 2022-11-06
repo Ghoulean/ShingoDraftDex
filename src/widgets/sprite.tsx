@@ -8,6 +8,7 @@ export type SpriteProps = {
 };
 
 export const Sprite = (props: SpriteProps) => {
+    // TODO: rehost images
     const { url } = Sprites.getPokemon(props.pokemonDisplayName, {
         gen: props.gen,
     });

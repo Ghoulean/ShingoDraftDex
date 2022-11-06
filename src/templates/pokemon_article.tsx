@@ -26,10 +26,6 @@ export default function PokemonArticle(props: {
         return edge.node.frontmatter;
     });
 
-    const articleBodies: string[] = edges.map((edge) => {
-        return edge.node.body;
-    });
-
     const specie: Specie[] = pokemon.map((pokemon) => {
         return Natdex.get(pokemon.generation as GenerationNum).species.get(
             pokemon.displayName

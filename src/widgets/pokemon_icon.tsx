@@ -4,13 +4,14 @@ import { Icons } from "@pkmn/img";
 import { GenerationNum } from "@pkmn/data";
 import { getBaseSpeciesDisplayName, getUrlPath } from "../utils/url";
 
-export type IconProps = {
+export type PokemonIconProps = {
     gen: GenerationNum;
     pokemonDisplayName: string;
     link?: boolean;
 };
 
-export const Icon = (props: IconProps) => {
+export const PokemonIcon = (props: PokemonIconProps) => {
+    // TODO: rehost images
     const { css } = Icons.getPokemon(props.pokemonDisplayName, {});
     if (props.link) {
         const path: string = getUrlPath(
