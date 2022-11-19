@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import type { Pokemon } from "../models/Pokemon";
 import { graphql } from "gatsby";
-import { GenerationNum, Specie } from "@pkmn/data";
+import { GenerationNum } from "@pkmn/data";
 import { PokemonIcon } from "../widgets/pokemon_icon";
 
 type PokemonRatingBucket = {

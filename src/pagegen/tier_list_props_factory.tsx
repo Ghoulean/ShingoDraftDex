@@ -1,7 +1,5 @@
 import path from "path";
 import { GenerationNum } from "@pkmn/types";
-import { Pokemon } from "../models/Pokemon";
-import { getUrlPath } from "../utils/url";
 import { PageProps, PagePropsFactory } from "./page_props_factory";
 
 export type TierListPropContext = {

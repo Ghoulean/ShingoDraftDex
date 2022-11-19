@@ -26,7 +26,6 @@ const config: GatsbyConfig = {
                 icon: "src/assets/icon.png",
             },
         },
-        "gatsby-plugin-mdx",
         {
             resolve: "gatsby-source-filesystem",
             options: {
@@ -42,6 +41,9 @@ const config: GatsbyConfig = {
                 path: "./src/pokemon/",
             },
             __key: "pokemon",
+        },
+        {
+            resolve: "gatsby-plugin-mdx"
         },
     ],
 };

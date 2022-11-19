@@ -4,26 +4,28 @@ import { Pokemon } from "../models/Pokemon";
 import { getUrlPath } from "../utils/url";
 import { PageProps, PagePropsFactory } from "./page_props_factory";
 
-const POKEMON_ARTICLE_QUERY = `
-query loadPageQuery {
-    allMdx(sort: { order: [ASC], fields: [frontmatter___dexNumber] }) {
-        edges {
-            node {
-                frontmatter {
-                    generation
-                    dexNumber
-                    idName
-                    baseId
-                    displayName
-                    rating
-                    specialConditions
-                    tags
-                }
-            }
+const POKEMON_ARTICLE_QUERY = `{
+    allMdx {
+      edges {
+        node {
+          frontmatter {
+            generation
+            idName
+          }
+          internal {
+            contentFilePath
+          }
         }
+      }
     }
-}
-`;
+  }`;
+
+const POST_TEMPLATE = path.join(
+    __dirname,
+    "..",
+    "templates",
+    "pokemon_article.tsx"
+);
 
 export type PokemonArticlePropContext = {
     generation: GenerationNum;
@@ -36,46 +38,30 @@ export class PokemonArticlePropsFactory extends PagePropsFactory {
     ): Promise<PageProps[]> {
         const pokemonArticleMarkdown: {
             errors?: any;
-            data?: { allMdx: { edges: { node: { frontmatter: Pokemon } }[] } };
+            data?: {
+                allMdx: {
+                    edges: {
+                        node: {
+                            frontmatter: Pokemon;
+                            internal: { contentFilePath: string };
+                        };
+                    }[];
+                };
+            };
         } = await graphql(POKEMON_ARTICLE_QUERY);
-
-        // group by base species/dex number
-        // there currently is no pokemon family that maps to the same base species but not dex number,
-        // or to the same dex number but not base species
-        // hopefully it stays that way
-        const groupedPokemon: { [key: string]: Pokemon[] } = {};
-
-        pokemonArticleMarkdown.data!.allMdx.edges.forEach((edge) => {
-            const pokemon: Pokemon = edge.node.frontmatter;
-            if (!(pokemon.baseId in groupedPokemon)) {
-                groupedPokemon[pokemon.baseId] = [pokemon];
-            } else {
-                groupedPokemon[pokemon.baseId].push(pokemon);
-            }
-        });
 
         const pageProps: PageProps[] = [];
 
-        const groupedPokemonKeys: string[] = Object.keys(groupedPokemon);
-        for (const baseSpecies of groupedPokemonKeys) {
-            const pokemonGroup: Pokemon[] = groupedPokemon[baseSpecies];
-            const basePokemon: Pokemon = pokemonGroup.find(
-                (pokemon) => pokemon.displayName === pokemon.baseId
-            )!;
+        const edges = pokemonArticleMarkdown.data!.allMdx.edges;
+
+        for (const edge of edges) {
+            const pokemon: Pokemon = edge.node.frontmatter;
             pageProps.push({
-                path: getUrlPath(
-                    basePokemon.generation,
-                    basePokemon.displayName
-                ),
-                component: path.join(
-                    __dirname,
-                    "..",
-                    "templates",
-                    "pokemon_article.tsx"
-                ),
+                path: getUrlPath(pokemon.generation, pokemon.idName),
+                component: `${POST_TEMPLATE}?__contentFilePath=${edge.node.internal.contentFilePath}`,
                 context: {
-                    generation: basePokemon.generation,
-                    dexNumber: basePokemon.dexNumber,
+                    generation: pokemon.generation,
+                    idName: pokemon.idName,
                 },
             });
         }
